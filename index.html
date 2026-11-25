@@ -334,7 +334,8 @@ main { display: block; }
 .js[data-stock="kirkland"] .stock-u { display: none; }
 .js[data-stock="unsalted"] .stock-k { display: none; }
 .js[data-finish="A"] .path-b, .js[data-finish="B"] .path-a { opacity: 0.42; }
-.js[data-finish="A"] .path-b::after, .js[data-finish="B"] .path-a::after { content: ' (not your path)'; font-size: 0.8rem; color: var(--ink-3); font-style: italic; }
+.js[data-finish="A"] .path-b:not(.subs > li)::after, .js[data-finish="B"] .path-a:not(.subs > li)::after,
+.js[data-finish="A"] .subs > li.path-b > div::after, .js[data-finish="B"] .subs > li.path-a > div::after { content: ' (not your path)'; font-size: 0.8rem; color: var(--ink-3); font-style: italic; }
 
 .t { display: inline-flex; align-items: baseline; gap: 0.32em; white-space: nowrap; font-family: var(--mono); font-weight: 600; font-size: 0.92em; color: var(--heat); font-variant-numeric: tabular-nums; }
 .t .tc { font-size: 0.8em; font-weight: 500; opacity: 0.72; }
@@ -469,7 +470,12 @@ main { display: block; }
 :root[data-theme="dark"] .where.fridge { background: oklch(0.32 0.05 240); color: oklch(0.85 0.07 230); }
 
 /* ───────────── Planner ───────────── */
-.planner { padding: 20px 18px; border-radius: var(--r-lg); background: var(--ink); color: var(--paper); box-shadow: var(--shadow-lg); }
+/* The planner is always a dark card (its own palette), in both themes. */
+.planner {
+  --paper: oklch(0.96 0.015 85); --ink: oklch(0.245 0.032 150); --gold: oklch(0.8 0.13 75); --heat: oklch(0.76 0.13 42);
+  padding: 20px 18px; border-radius: var(--r-lg); background: var(--ink); color: var(--paper); box-shadow: var(--shadow-lg);
+  border: 1px solid oklch(1 0 0 / 0.07);
+}
 .planner .t { color: color-mix(in oklch, var(--heat) 55%, var(--paper)); }
 .planner-head { display: grid; gap: 12px; margin-bottom: 18px; }
 .planner-head label { display: flex; align-items: center; gap: 8px; font: 600 0.78rem/1 var(--mono); letter-spacing: 0.08em; text-transform: uppercase; opacity: 0.8; }
@@ -659,7 +665,7 @@ dialog::backdrop { background: oklch(0.15 0.02 150 / 0.45); -webkit-backdrop-fil
   .js li.stock-u, .js li.stock-k { display: grid !important; }
   .js span.stock-u { display: block !important; }
   .path-a, .path-b { opacity: 1 !important; }
-  .path-a::after, .path-b::after { content: none !important; }
+  .path-a::after, .path-b::after, .path-a > div::after, .path-b > div::after { content: none !important; }
 }
 
 </style>
@@ -1730,6 +1736,7 @@ function renderDock(animate) {
   };
   animate ? transition(draw) : draw();
   for (const b of $$('.tmr')) b.classList.toggle('running', timers.some((t) => t.id === b.dataset.id && !t.fired));
+  keepAwake();
 }
 dock.addEventListener('click', (e) => {
   const b = e.target.closest('[data-act]');
@@ -1833,7 +1840,7 @@ function renderPlanner() {
   const armed = timers.filter((t) => t.kind === 'alarm' && !t.fired).length;
   const mins = Math.round((serve - now) / 60000);
   status.textContent = armed
-    ? `${armed} alert${armed > 1 ? 's' : ''} set — keep this page open (or installed) to hear them.`
+    ? `${armed} alert${armed > 1 ? 's' : ''} set. Keep this page open; the screen stays on while alerts are pending.`
     : currentMode() === 'serve' && mins > 30 ? `Start at ${formatClock(clocks[0])}. That’s in ${mins - 30 >= 60 ? `${Math.floor((mins - 30) / 60)} h ${(mins - 30) % 60} min` : `${mins - 30} min`}.`
     : '';
 }
@@ -1872,7 +1879,7 @@ $('[data-start-now]')?.addEventListener('click', () => {
   applySettings();
   armCountdown();
 });
-setInterval(renderPlanner, 20000);
+setInterval(() => { applyMode(); renderPlanner(); }, 20000);
 
 /* ─────────── Cook mode ─────────── */
 const cook = $('#cook');
@@ -1930,8 +1937,24 @@ function renderSlide(dir = 1) {
 function say(text) {
   try { speechSynthesis.cancel(); const u = new SpeechSynthesisUtterance(text); u.rate = 1; speechSynthesis.speak(u); } catch {}
 }
+// Hold a screen wake lock while cook mode is open or any timer/alert is pending:
+// a locked iPhone suspends the page, and with it every timer and chime.
+const needWake = () => cook.open || timers.some((t) => t.fired < 2 || Date.now() - t.end < 120000);
 async function keepAwake() {
-  try { wake = await navigator.wakeLock?.request('screen'); $('[data-cook-wake]', cook).hidden = !wake; } catch { wake = null; }
+  const note = $('[data-cook-wake]', cook);
+  if (!needWake()) {
+    try { await wake?.release(); } catch {}
+    wake = null;
+    note.hidden = true;
+    return;
+  }
+  if (!wake) {
+    try {
+      wake = (await navigator.wakeLock?.request('screen')) || null;
+      wake?.addEventListener('release', () => { wake = null; });
+    } catch { wake = null; }
+  }
+  note.hidden = !wake;
 }
 function openCook(day) {
   const d = day || (currentMode() === 'serve' || currentMode() === 'after' ? 'serve' : 'prep');
@@ -1949,12 +1972,18 @@ function closeCook() {
 }
 cook.addEventListener('close', () => {
   document.body.append(dock);
-  wake?.release?.(); wake = null;
+  keepAwake();
   try { speechSynthesis.cancel(); } catch {}
   const s = slides[at];
   s?.li.scrollIntoView({ block: 'center' });
 });
-document.addEventListener('visibilitychange', () => { if (!document.hidden && cook.open) keepAwake(); });
+// Coming back to the page: re-acquire the wake lock and catch the date rolling over (prep day → Thanksgiving).
+document.addEventListener('visibilitychange', () => {
+  if (document.hidden) return;
+  keepAwake();
+  applyMode();
+  renderPlanner();
+});
 document.addEventListener('click', (e) => {
   const b = e.target.closest('[data-open-cook]');
   if (b) openCook(b.dataset.openCook);

@@ -266,6 +266,7 @@ function renderDock(animate) {
   };
   animate ? transition(draw) : draw();
   for (const b of $$('.tmr')) b.classList.toggle('running', timers.some((t) => t.id === b.dataset.id && !t.fired));
+  keepAwake();
 }
 dock.addEventListener('click', (e) => {
   const b = e.target.closest('[data-act]');
@@ -369,7 +370,7 @@ function renderPlanner() {
   const armed = timers.filter((t) => t.kind === 'alarm' && !t.fired).length;
   const mins = Math.round((serve - now) / 60000);
   status.textContent = armed
-    ? `${armed} alert${armed > 1 ? 's' : ''} set — keep this page open (or installed) to hear them.`
+    ? `${armed} alert${armed > 1 ? 's' : ''} set. Keep this page open; the screen stays on while alerts are pending.`
     : currentMode() === 'serve' && mins > 30 ? `Start at ${formatClock(clocks[0])}. That’s in ${mins - 30 >= 60 ? `${Math.floor((mins - 30) / 60)} h ${(mins - 30) % 60} min` : `${mins - 30} min`}.`
     : '';
 }
@@ -408,7 +409,7 @@ $('[data-start-now]')?.addEventListener('click', () => {
   applySettings();
   armCountdown();
 });
-setInterval(renderPlanner, 20000);
+setInterval(() => { applyMode(); renderPlanner(); }, 20000);
 
 /* ─────────── Cook mode ─────────── */
 const cook = $('#cook');
@@ -466,8 +467,24 @@ function renderSlide(dir = 1) {
 function say(text) {
   try { speechSynthesis.cancel(); const u = new SpeechSynthesisUtterance(text); u.rate = 1; speechSynthesis.speak(u); } catch {}
 }
+// Hold a screen wake lock while cook mode is open or any timer/alert is pending:
+// a locked iPhone suspends the page, and with it every timer and chime.
+const needWake = () => cook.open || timers.some((t) => t.fired < 2 || Date.now() - t.end < 120000);
 async function keepAwake() {
-  try { wake = await navigator.wakeLock?.request('screen'); $('[data-cook-wake]', cook).hidden = !wake; } catch { wake = null; }
+  const note = $('[data-cook-wake]', cook);
+  if (!needWake()) {
+    try { await wake?.release(); } catch {}
+    wake = null;
+    note.hidden = true;
+    return;
+  }
+  if (!wake) {
+    try {
+      wake = (await navigator.wakeLock?.request('screen')) || null;
+      wake?.addEventListener('release', () => { wake = null; });
+    } catch { wake = null; }
+  }
+  note.hidden = !wake;
 }
 function openCook(day) {
   const d = day || (currentMode() === 'serve' || currentMode() === 'after' ? 'serve' : 'prep');
@@ -485,12 +502,18 @@ function closeCook() {
 }
 cook.addEventListener('close', () => {
   document.body.append(dock);
-  wake?.release?.(); wake = null;
+  keepAwake();
   try { speechSynthesis.cancel(); } catch {}
   const s = slides[at];
   s?.li.scrollIntoView({ block: 'center' });
 });
-document.addEventListener('visibilitychange', () => { if (!document.hidden && cook.open) keepAwake(); });
+// Coming back to the page: re-acquire the wake lock and catch the date rolling over (prep day → Thanksgiving).
+document.addEventListener('visibilitychange', () => {
+  if (document.hidden) return;
+  keepAwake();
+  applyMode();
+  renderPlanner();
+});
 document.addEventListener('click', (e) => {
   const b = e.target.closest('[data-open-cook]');
   if (b) openCook(b.dataset.openCook);

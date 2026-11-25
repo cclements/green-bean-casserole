@@ -2,7 +2,7 @@
 
 ## Intent
 A showpiece companion web app for the v3.3 "First-Principles Thanksgiving Green Bean Casserole"
-recipe, used by Chris and family on iPhones in the kitchen. Prep day is 2026-11-25 and serving day is
+recipe, used by the family on iPhones in the kitchen. Prep day is 2026-11-25 and serving day is
 Thanksgiving, 2026-11-26. It should anticipate what a cook needs mid-recipe and be a joy to use.
 
 ## Goals
