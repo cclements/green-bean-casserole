@@ -1,0 +1,10 @@
+{
+  "name": "green-bean-casserole",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "vendor": "node scripts/fetch-vendor.mjs",
+    "build": "node build.mjs",
+    "test": "node build.mjs && node --test tests/"
+  }
+}

@@ -1,0 +1,772 @@
+<!doctype html>
+<html lang="en" data-units="both" data-temp="F" data-stock="kirkland" data-batch="half" data-finish="A" data-mode="none">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Green Bean Casserole · v3.3</title>
+<meta name="description" content="A first-principles Thanksgiving green bean casserole: water-bath Swiss cream emulsion, deeply browned mushrooms and dual crunch. Prep-day plan, cook mode, timers and a 30-minute serving countdown.">
+<meta name="color-scheme" content="light dark">
+<meta name="theme-color" content="#f4efe4" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#141b16" media="(prefers-color-scheme: dark)">
+<link rel="manifest" href="manifest.json">
+<link rel="icon" href="icon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="apple-touch-icon.png">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="Casserole">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
+<meta property="og:type" content="website">
+<meta property="og:title" content="First-Principles Thanksgiving Green Bean Casserole">
+<meta property="og:description" content="Water-bath cream emulsion, deeply browned mushrooms &amp; dual crunch. Prep today, finish in 30 minutes on Thanksgiving.">
+<meta property="og:image" content="https://cclements.github.io/green-bean-casserole/img/og.jpg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+<script>
+  // Apply saved settings before first paint (no flash). Safe if storage is unavailable.
+  (function () {
+    var h = document.documentElement;
+    h.classList.add('js');
+    try {
+      var s = JSON.parse(localStorage.getItem('gbc-v1') || '{}').settings || {};
+      ['units', 'temp', 'stock', 'batch', 'finish', 'theme'].forEach(function (k) {
+        if (s[k]) h.setAttribute('data-' + k, s[k]);
+      });
+    } catch (e) {}
+  })();
+</script>
+<style>
+/* @fonts */
+/* @inline:css */
+</style>
+</head>
+<body>
+<a class="skip" href="#main">Skip to the recipe</a>
+<!-- @inline:sprite -->
+
+<header class="appbar" role="banner">
+  <a class="brand" href="#top" aria-label="Back to top">
+    <span class="brand-mark" aria-hidden="true">{{icon:bean}}</span>
+    <span class="brand-text">Green Bean Casserole <small>v3.3</small></span>
+  </a>
+  <div class="appbar-actions">
+    <a class="icon-btn" href="#help" title="Something’s wrong?" aria-label="Troubleshooting">{{icon:life-buoy}}</a>
+    <button class="icon-btn js-only" type="button" data-open-cook title="Cook mode" aria-label="Open cook mode">{{icon:chef-hat}}</button>
+    <button class="icon-btn js-only" type="button" data-open="settings" title="Settings" aria-label="Open settings">{{icon:sliders-horizontal}}</button>
+  </div>
+  <div class="read-progress" aria-hidden="true"></div>
+</header>
+
+<nav class="tabs" aria-label="Sections">
+  <a href="#today" data-nav="today">{{icon:house}}<span>Today</span></a>
+  <a href="#shop" data-nav="shop">{{icon:shopping-basket}}<span>Shop</span></a>
+  <a href="#formula" data-nav="formula">{{icon:scale}}<span>Recipe</span></a>
+  <a href="#prep" data-nav="prep">{{icon:chef-hat}}<span>Prep day</span><i class="nav-count" data-count="prep"></i></a>
+  <a href="#serve" data-nav="serve">{{icon:hand-platter}}<span>Serve</span><i class="nav-count" data-count="serve"></i></a>
+</nav>
+
+<nav class="rail" aria-label="Contents">
+  <p class="rail-title">Contents</p>
+  <ol>
+    <li><a href="#today" data-nav="today">Today’s plan</a></li>
+    <li><a href="#idea" data-nav="idea">The idea &amp; guardrails</a></li>
+    <li><a href="#shop" data-nav="shop">Shopping list <i class="nav-count" data-count="shop"></i></a></li>
+    <li><a href="#gear" data-nav="gear">Equipment <i class="nav-count" data-count="gear"></i></a></li>
+    <li><a href="#formula" data-nav="formula">Formulation</a></li>
+    <li><a href="#prep" data-nav="prep">Prep day <i class="nav-count" data-count="prep"></i></a></li>
+    <li><a href="#serve" data-nav="serve">Thanksgiving day <i class="nav-count" data-count="serve"></i></a></li>
+    <li><a href="#help" data-nav="help">Troubleshooting &amp; safety</a></li>
+  </ol>
+</nav>
+
+<main id="main">
+
+<!-- ═══════════════════════ HERO ═══════════════════════ -->
+<section class="hero" id="top" aria-labelledby="title">
+  <figure class="hero-media" data-lqip="hero">
+    <picture>
+      <source type="image/webp" srcset="img/hero-800.webp 800w, img/hero-1536.webp 1536w" sizes="100vw">
+      <img src="img/hero-1536.webp" alt="The finished casserole in a copper gratin dish on a dark wood table: green beans in Swiss cream, browned mushrooms, golden Parmesan-panko and a heap of crisp fried shallots, with a ramekin of extra shallots" width="1536" height="1024" fetchpriority="high" decoding="async">
+    </picture>
+  </figure>
+  <div class="hero-copy">
+    <p class="kicker">First-Principles · v3.3 Production Edition</p>
+    <h1 id="title">Thanksgiving <em>Green&nbsp;Bean</em> Casserole</h1>
+    <p class="lede">Water-bath cream emulsion, deeply browned mushrooms &amp; dual crunch.</p>
+    <dl class="stats">
+      <div><dt>{{icon:utensils}} Yield</dt><dd>8–10 servings <small>~1.85 kg assembled</small></dd></div>
+      <div><dt>{{icon:chef-hat}} Prep day</dt><dd>110–135 min <small>active, day before</small></dd></div>
+      <div><dt>{{icon:hand-platter}} Thanksgiving</dt><dd>25–30 min <small>reheat &amp; assembly</small></dd></div>
+      <div><dt>{{icon:sparkles}} Finish</dt><dd>Zero-oven melt <small>or 30–60 s watchful broil</small></dd></div>
+    </dl>
+  </div>
+</section>
+
+<!-- ═══════════════════════ TODAY ═══════════════════════ -->
+<section class="today band" id="today" aria-labelledby="today-h">
+  <div class="today-head">
+    <p class="eyebrow" data-today-eyebrow>Two-day plan</p>
+    <h2 id="today-h" data-today-title>Prep the day before, finish in 30 minutes</h2>
+    <p class="today-sub" data-today-sub>Sauce, mushrooms, infused oil, crisp shallots and toasted panko keep up to 48 hours; blanched green beans up to 24 hours.</p>
+  </div>
+  <div class="day-cards">
+    <article class="day-card" data-day="prep">
+      <span class="badge js-only" data-today-badge="prep">Today</span>
+      <h3>{{icon:chef-hat}} Prep day <small>Wednesday, Nov 25</small></h3>
+      <p>Approximately 110–135 minutes, streamlined with parallel mise en place. Five steps: shallots, panko, beans, mushrooms, sauce.</p>
+      <div class="progress js-only" data-progress="prep"><span class="bar"><i></i></span><span class="label">0 of 0 done</span></div>
+      <div class="actions">
+        <button class="btn primary js-only" type="button" data-open-cook="prep">{{icon:play}} Start cook mode</button>
+        <a class="btn ghost" href="#prep">Read the steps {{icon:arrow-right}}</a>
+      </div>
+    </article>
+    <article class="day-card" data-day="serve">
+      <span class="badge js-only" data-today-badge="serve">Today</span>
+      <h3>{{icon:hand-platter}} Thanksgiving <small>Thursday, Nov 26</small></h3>
+      <p>Approximately 25–30 minutes on the stove and microwave. No oven needed unless you choose the broiler finish.</p>
+      <div class="progress js-only" data-progress="serve"><span class="bar"><i></i></span><span class="label">0 of 0 done</span></div>
+      <div class="actions">
+        <a class="btn primary" href="#planner">{{icon:calendar-clock}} Set serving time</a>
+        <button class="btn ghost js-only" type="button" data-open-cook="serve">{{icon:play}} Cook mode</button>
+      </div>
+    </article>
+  </div>
+  <aside class="glance">
+    <div><span>{{icon:cooking-pot}} Vessel</span><p>Shallow, broiler-safe 3-quart metal gratin dish or 12-inch braiser</p></div>
+    <div><span>{{icon:refrigerator}} Make-ahead</span><p>Sauce, mushrooms, infused oil (refrigerated), crisp shallots (room temp) and toasted panko (room temp) up to 48 hours; blanched green beans up to 24 hours</p></div>
+  </aside>
+</section>
+
+<!-- ═══════════════════════ 1. IDEA ═══════════════════════ -->
+<section class="band" id="idea" aria-labelledby="idea-h">
+  <header class="sec-head">
+    <p class="eyebrow"><span class="num">01</span> Design intent</p>
+    <h2 id="idea-h">It should taste unmistakably like <em>green bean casserole</em></h2>
+  </header>
+  <p class="prose big">Tender-crisp fresh green beans, deeply browned cremini mushrooms, a silky and restrained savory cream sauce, and shattering fried shallots.</p>
+
+  <ol class="hierarchy" aria-label="Flavor hierarchy">
+    <li><b>First</b><span>Green beans &amp; roasted mushrooms</span></li>
+    <li><b>Second</b><span>Integrated fried-shallot sweetness</span></li>
+    <li><b>Third</b><span>Savory cream with subtle Swiss nuttiness</span></li>
+    <li class="lift"><b>Lift</b><span>Aged sherry vinegar, at the last moment</span></li>
+  </ol>
+
+  <h3 class="sub-h">Critical gotchas prevented in this formulation</h3>
+  <ol class="guardrails">
+    <li>
+      <h4>{{icon:flask-conical}} Kirkland stock sodium calibration <small>Zero added sauce salt</small></h4>
+      <p>Using Kirkland Organic Chicken Stock (450 mg sodium per 240 mL) supplies the exact chloride ions (NaCl) needed to round out savory chicken notes and suppress hollow, propionic Swiss aromatics—while keeping cumulative sodium safe. <strong>Do not add table salt to the sauce, do not pre-reduce the stock, and thin reheated sauce with water or milk rather than extra stock.</strong></p>
+    </li>
+    <li>
+      <h4>{{icon:thermometer}} Water-bath cheese dispersion <small>{{t:165-175}} max</small></h4>
+      <p>Melting Swiss in a narrow jar set in a gentle water bath prevents water evaporation, keeps the immersion blender submerged without cavitation, and avoids overheating above {{t:176}}, where stock proteins and whey (β-lactoglobulin) coagulate into permanent grit that sodium citrate cannot fix.</p>
+    </li>
+    <li>
+      <h4>{{icon:layers}} Two sequential half-batches <small>~375 g each</small></h4>
+      <p>Making the sauce as two identical half-batches in a <strong>wide-mouth pint (16 oz) Mason jar</strong> guarantees ideal immersion-blender geometry, lets Half-Batch #1 serve as your live validation test, and yields ~750 g total with zero wasted ingredients. (Full-batch weights for a narrow 1-liter beaker are also provided.)</p>
+    </li>
+    <li>
+      <h4>{{icon:droplets}} Fast-hydrating 1:4 xanthan-to-oil ratio</h4>
+      <p>Cutting the carrier oil from 10:1 down to 4:1 allows xanthan gum to hydrate fully within 5 minutes so you never overshoot into a slick or stringy mouthfeel overnight.</p>
+      <p class="fine">The source heading reads “1:4 Oil-to-Xanthan”; the weights are 1 part xanthan to 4 parts oil (0.75 g : 3.00 g).</p>
+    </li>
+    <li>
+      <h4>{{icon:flame}} Two-batch mushrooms with late butter</h4>
+      <p>Browning mushrooms in two batches using high-smoke-point shallot oil—and withholding all butter until lowering the heat for the minced onions—prevents burnt milk solids from turning the fond bitter.</p>
+    </li>
+    <li>
+      <h4>{{icon:snowflake}} 60–90 second bean chill &amp; post-microwave blot</h4>
+      <p>Pulling cut green beans out of the ice bath as soon as cold (and draining vertically) prevents thermal contraction from drawing water inside hollow seed pods, eliminating watery sauce purge on Thanksgiving Day.</p>
+    </li>
+  </ol>
+</section>
+
+<!-- ═══════════════════════ 2. SHOP ═══════════════════════ -->
+<section class="band" id="shop" aria-labelledby="shop-h">
+  <header class="sec-head">
+    <p class="eyebrow"><span class="num">02</span> Consolidated grocery list</p>
+    <h2 id="shop-h">Shopping list</h2>
+    <p class="sec-sub">Check pantry staples before shopping. Quantities below cover the full recipe with safe margin for trimming.</p>
+  </header>
+  <figure class="photo wide" data-lqip="ingredients">
+    <img src="img/ingredients-1200.webp" srcset="img/ingredients-800.webp 800w, img/ingredients-1200.webp 1200w" sizes="(min-width: 1024px) 760px, 100vw" alt="Raw ingredients laid out on a dark wood board: green beans, cremini mushrooms, shallots, onion, garlic, thyme, Swiss and Parmesan, cream, butter, miso and panko" width="1200" height="800" loading="lazy" decoding="async">
+  </figure>
+
+  <div class="list-tools js-only">
+    <p class="progress" data-progress="shop"><span class="bar"><i></i></span><span class="label">0 of 0 in the cart</span></p>
+    <div class="tool-btns">
+      <button class="btn small" type="button" data-share-list>{{icon:share}} Share what’s left</button>
+      <button class="btn small ghost" type="button" data-copy-list>{{icon:copy}} Copy</button>
+    </div>
+  </div>
+
+  <div class="shop-groups">
+    <section class="shop-group" aria-labelledby="g-produce">
+      <h3 id="g-produce">{{icon:leaf}} Produce</h3>
+      <ul class="checklist">
+        <li data-c="shop"><div><b>Fresh green beans</b> <span class="alt">(or flat Romano-style pole beans)</span> <span class="q">2¼ to 2½ lb</span><p>Yields 900 g (~2 lb) trimmed; pick crisp, young pods</p></div></li>
+        <li data-c="shop"><div><b>Fresh cremini (baby bella) mushrooms</b> <span class="q">Three 8-oz packages (24 oz)</span><p>Yields 600 g (~21 oz) trimmed</p></div></li>
+        <li data-c="shop"><div><b>Shallots</b> <span class="q">1 to 1¼ lb unpeeled</span><p>Yields 400 g peeled</p></div></li>
+        <li data-c="shop"><div><b>Yellow onion</b> <span class="q">1 small or medium</span><p>Need 60 g (~⅓ cup finely minced)</p></div></li>
+        <li data-c="shop"><div><b>Garlic</b> <span class="q">1 head</span><p>Need 2–3 medium cloves (7 g)</p></div></li>
+        <li data-c="shop"><div><b>Fresh thyme</b> <span class="q">1 bunch or clamshell</span><p>Need ~1½ tsp leaves total</p></div></li>
+      </ul>
+    </section>
+    <section class="shop-group" aria-labelledby="g-dairy">
+      <h3 id="g-dairy">{{icon:milk}} Dairy &amp; cheese</h3>
+      <ul class="checklist">
+        <li data-c="shop"><div><b>Heavy whipping cream</b> <span class="q strong">1 pint (473 mL)</span><p>Half-pint is insufficient; 1 pint covers 200 g + margin</p></div></li>
+        <li data-c="shop"><div><b>Whole milk</b> <span class="q">½ pint (or 1 cup from carton)</span><p>Need 100 g (~½ cup) plus splashes for thinning</p></div></li>
+        <li data-c="shop"><div><b>Mild full-fat Swiss cheese</b> <span class="q strong">4-oz block</span> <span class="alt">(or 8-oz for extra margin)</span><p>Block only (no pre-shredded); need 80 g (~2.8 oz)</p></div></li>
+        <li data-c="shop"><div><b>Parmigiano-Reggiano</b> <span class="q">Small wedge (~1–2 oz)</span><p>Need 20 g finely Microplaned</p></div></li>
+        <li data-c="shop"><div><b>Unsalted butter</b> <span class="q">1 stick (4 oz)</span><p>Need 26 g (~2 Tbsp total)</p></div></li>
+      </ul>
+    </section>
+    <section class="shop-group" aria-labelledby="g-pantry">
+      <h3 id="g-pantry">{{icon:cooking-pot}} Pantry &amp; stock</h3>
+      <ul class="checklist">
+        <li data-c="shop"><div><b>Kirkland Signature Organic Chicken Stock</b> <span class="q strong">1 quart (946 mL) carton</span><p>450 mg Na per 240 mL baseline; see the stock substitution rule below if using unsalted</p></div></li>
+        <li data-c="shop"><div><b>Canola, vegetable, or neutral frying oil</b> <span class="q strong">3 cups (~650 g)</span><p>Enough to fry all 400 g shallots cleanly in one batch</p></div></li>
+        <li data-c="shop"><div><b>Plain panko breadcrumbs</b> <span class="q">1 canister/box</span><p>Need 30 g (~½ to ⅔ cup)</p></div></li>
+        <li data-c="shop"><div><b>Mild white (shiro) miso</b> <span class="q">1 small tub</span><p>Need 10 g (1¾ tsp)</p></div></li>
+        <li data-c="shop"><div><b>Aged sherry vinegar</b> <span class="alt">(or champagne vinegar)</span> <span class="q">1 bottle</span><p>Finishing acid (need 1–2 tsp)</p></div></li>
+        <li data-c="shop"><div><b>Dry white wine</b> <span class="q opt">Optional (50 g / ~3 Tbsp)</span><p>Preferred for mushroom deglazing; or use 50/50 stock + water</p></div></li>
+        <li data-c="shop"><div><b>Fish sauce</b> <span class="q opt">Optional (1 bottle)</span><p>Optional umami booster (0 to ½ tsp at final tasting)</p></div></li>
+      </ul>
+    </section>
+    <section class="shop-group" aria-labelledby="g-spice">
+      <h3 id="g-spice">{{icon:flask-conical}} Modernist &amp; spice</h3>
+      <ul class="checklist">
+        <li data-c="shop"><div><b>Food-grade trisodium citrate</b> <span class="q">~4 g (1 tsp)</span><p>Granular food-grade</p></div></li>
+        <li data-c="shop"><div><b>Xanthan gum</b> <span class="q">~1.5 g (½ tsp)</span><p>Standard culinary powder (e.g., Bob’s Red Mill)</p></div></li>
+        <li data-c="shop"><div><b>Salt, black pepper, whole nutmeg</b> <span class="q">Pantry staples</span><p>Weigh blanching salt if possible</p></div></li>
+      </ul>
+    </section>
+  </div>
+
+  <aside class="callout warn" id="stock-rule">
+    <h3>{{icon:triangle-alert}} Stock substitution rule</h3>
+    <p>If substituting <strong>unsalted chicken stock</strong> (&lt;70 mg sodium per 240 mL) instead of Kirkland Organic Stock, add <strong>1.4 g (scant ¼ tsp) fine sea salt per half-batch</strong> (<strong>2.8 g / scant ½ tsp per full batch</strong>) to Phase 2 of the sauce so the Swiss and citrate stay balanced. Never use regular full-sodium broth (750–900 mg Na per 240 mL).</p>
+    <div class="seg js-only" role="radiogroup" aria-label="Which stock are you using?">
+      <span class="seg-label">My stock:</span>
+      <button type="button" role="radio" data-set="stock" data-value="kirkland">Kirkland Organic</button>
+      <button type="button" role="radio" data-set="stock" data-value="unsalted">Unsalted</button>
+    </div>
+  </aside>
+</section>
+
+<!-- ═══════════════════════ 3. GEAR ═══════════════════════ -->
+<section class="band" id="gear" aria-labelledby="gear-h">
+  <header class="sec-head">
+    <p class="eyebrow"><span class="num">03</span> Equipment checklist</p>
+    <h2 id="gear-h">Equipment</h2>
+  </header>
+  <div class="two-col">
+    <section aria-labelledby="gear-prep">
+      <h3 id="gear-prep" class="sub-h">{{icon:chef-hat}} Prep day</h3>
+      <ul class="checklist compact">
+        <li data-c="gear"><div>Digital kitchen scale (1 g resolution) and precision pocket scale (0.01 g resolution preferred, or knife-leveled standard measuring spoons).</div></li>
+        <li data-c="gear"><div>Instant-read digital thermometer.</div></li>
+        <li data-c="gear"><div>Mandoline slicer (set to 1–1.5 mm, <strong>with hand guard/cut glove</strong>) or razor-sharp chef’s knife.</div></li>
+        <li data-c="gear"><div>Heavy 4-quart saucepan or medium Dutch oven (for single-batch shallot frying) + fine-mesh spider or heat-safe strainer + paper-towel-lined sheet pan.</div></li>
+        <li data-c="gear"><div>Wide 12-inch stainless steel or enameled cast-iron skillet (used first for panko, then for mushrooms).</div></li>
+        <li data-c="gear"><div>Large 6- to 8-quart stockpot + colander + large bowl of ice water + clean lint-free kitchen towels.</div></li>
+        <li data-c="gear"><div><strong>Immersion blender + Wide-mouth pint (16 oz) Mason jar</strong> (for two sequential half-batches) <em>or</em> narrow 1-liter heatproof beaker (for a single full batch), set inside a small saucepan water bath.</div></li>
+        <li data-c="gear"><div>Small fine-mesh tea strainer (for straining miso into the sauce) and Microplane grater (for Parmesan).</div></li>
+      </ul>
+    </section>
+    <section aria-labelledby="gear-day">
+      <h3 id="gear-day" class="sub-h">{{icon:hand-platter}} Thanksgiving day</h3>
+      <ul class="checklist compact">
+        <li data-c="gear"><div>Wide 12-inch sauté pan or Dutch oven (for gentle filling reheat).</div></li>
+        <li data-c="gear"><div>Microwave-safe bowl with vented lid (or steamer basket) + clean kitchen towel.</div></li>
+        <li data-c="gear"><div>Shallow 3-quart metal gratin dish or 12-inch braiser (do <strong>not</strong> put glass or unrated ceramic under a broiler).</div></li>
+      </ul>
+    </section>
+  </div>
+</section>
+
+<!-- ═══════════════════════ 4. FORMULATION ═══════════════════════ -->
+<section class="band" id="formula" aria-labelledby="formula-h">
+  <header class="sec-head">
+    <p class="eyebrow"><span class="num">04</span> Complete ingredient formulation</p>
+    <h2 id="formula-h">Weights &amp; volume equivalents</h2>
+    <p class="sec-sub">All produce weights are peeled or trimmed weights. Level all measuring spoons flat with the back of a knife. Tap a row to mark it measured.</p>
+  </header>
+  <div class="seg js-only" role="radiogroup" aria-label="Show measurements as">
+    <span class="seg-label">{{icon:scale}} Show:</span>
+    <button type="button" role="radio" data-set="units" data-value="both">Both</button>
+    <button type="button" role="radio" data-set="units" data-value="w">Weights</button>
+    <button type="button" role="radio" data-set="units" data-value="v">Volumes</button>
+  </div>
+
+  <article class="formula-card" aria-labelledby="fa">
+    <h3 id="fa"><span class="tag">A</span> Cold-start crispy shallots &amp; infused oil</h3>
+    <ul class="ings">
+      <li data-c="ingA"><b>Shallots, peeled</b><span class="q w">400 g</span><span class="q v">~3 to 3½ cups</span><p>uniformly sliced 1–1.5 mm thick</p></li>
+      <li data-c="ingA"><b>Neutral oil (canola or vegetable)</b><span class="q w">600–650 g</span><span class="q v">~2¾ to 3 cups</span><p>must comfortably submerge settled slices</p></li>
+      <li data-c="ingA"><b>Fine sea salt</b><span class="q w">To taste</span><span class="q v">~¼ tsp</span><p>sprinkled immediately after draining</p></li>
+    </ul>
+    <p class="yield">{{icon:sparkles}} <strong>Expected yield:</strong> ~95–110 g (~2 to 2¼ cups loosely packed) crisp shallots + ~2½ cups fragrant shallot oil.</p>
+    <div class="alloc" aria-label="Shallot allocation">
+      <p class="alloc-title">Shallot allocation</p>
+      <div class="alloc-bar" aria-hidden="true"><span style="--w:20">20%</span><span style="--w:65">65%</span><span style="--w:15">15%</span></div>
+      <ul class="alloc-legend">
+        <li><i></i><b>20% (~20 g / ~⅓ cup)</b> Crushed into fine flakes and melted into the sauce on Thanksgiving Day.</li>
+        <li><i></i><b>65% (~65 g / ~1⅓ cups)</b> Scattered over the top immediately before serving.</li>
+        <li><i></i><b>15% (~15 g / ~⅓ cup)</b> Served in a small ramekin at the table.</li>
+      </ul>
+    </div>
+  </article>
+
+  <article class="formula-card" aria-labelledby="fb">
+    <h3 id="fb"><span class="tag">B</span> Toasted Parmesan-panko topping</h3>
+    <ul class="ings">
+      <li data-c="ingB"><b>Plain panko breadcrumbs</b><span class="q w">30 g</span><span class="q v">~½ to ⅔ cup</span></li>
+      <li data-c="ingB"><b>Unsalted butter</b><span class="q w">6 g</span><span class="q v">1¼ tsp</span></li>
+      <li data-c="ingB"><b>Strained shallot oil</b><span class="q w">3 g</span><span class="q v">¾ tsp</span></li>
+      <li data-c="ingB"><b>Parmigiano-Reggiano</b><span class="q w">20 g</span><span class="q v">~½ cup</span><p>wispy Microplane-grated (store separately until service)</p></li>
+    </ul>
+  </article>
+
+  <article class="formula-card" aria-labelledby="fc">
+    <h3 id="fc"><span class="tag">C</span> Blanched green beans</h3>
+    <ul class="ings">
+      <li data-c="ingC"><b>Trimmed fresh green beans</b><span class="q w">900 g</span><span class="q v">~2 lb</span><p>cut into 2-inch lengths</p></li>
+      <li data-c="ingC"><b>Water</b><span class="q w">4,000 g</span><span class="q v">4¼ quarts (17 cups)</span></li>
+      <li data-c="ingC"><b>Blanching salt (1% solution)</b><span class="q w">40 g</span><span class="q v">2 Tbsp + 1 tsp fine salt</span><p>or ¼ cup + 1 Tbsp Diamond Crystal kosher</p></li>
+    </ul>
+  </article>
+
+  <article class="formula-card" aria-labelledby="fd">
+    <h3 id="fd"><span class="tag">D</span> Two-batch browned mushrooms &amp; aromatics</h3>
+    <ul class="ings">
+      <li data-c="ingD"><b>Cremini mushrooms, roughly chopped</b><span class="q w">400 g</span><span class="q v">~14 oz (~5½ cups)</span><p>chopped into ¼- to ½-inch pieces (Batch 1)</p></li>
+      <li data-c="ingD"><b>Cremini mushrooms, sliced</b><span class="q w">200 g</span><span class="q v">~7 oz (~2¾ cups)</span><p>sliced ¼-inch thick (Batch 2)</p></li>
+      <li data-c="ingD"><b>Water for wet-start</b><span class="q w">70 g total</span><span class="q v">3 Tbsp, then 1 Tbsp + 2 tsp</span><p><strong>3 Tbsp (45 g)</strong> for Batch 1; <strong>1 Tbsp + 2 tsp (25 g)</strong> for Batch 2</p></li>
+      <li data-c="ingD"><b>Strained shallot oil</b><span class="q w">24 g total</span><span class="q v">1 Tbsp + ¼ tsp, then 1¾ tsp</span><p><strong>1 Tbsp + ¼ tsp (16 g)</strong> for Batch 1; <strong>1¾ tsp (8 g)</strong> for Batch 2</p></li>
+      <li data-c="ingD"><b>Unsalted butter (held for aromatics)</b><span class="q w">20 g</span><span class="q v">1½ Tbsp</span><p>do <strong>not</strong> add during mushroom browning</p></li>
+      <li data-c="ingD"><b>Yellow onion, finely minced</b><span class="q w">60 g</span><span class="q v">~⅓ cup</span></li>
+      <li data-c="ingD"><b>Garlic, finely minced</b><span class="q w">7 g</span><span class="q v">~2 tsp (2–3 cloves)</span></li>
+      <li data-c="ingD"><b>Fresh thyme leaves</b><span class="q w">1 g</span><span class="q v">~1 tsp</span><p>or ¼ tsp dried thyme</p></li>
+      <li data-c="ingD"><b>Dry white wine (preferred deglaze)</b><span class="q w">50 g</span><span class="q v">3 Tbsp + 1 tsp</span><p>or 25 g Kirkland stock + 25 g water</p></li>
+      <li data-c="ingD"><b>Fine sea salt</b><span class="q w">1.2 g</span><span class="q v">¼ tsp fine salt</span><p>or ½ tsp Diamond Crystal kosher</p></li>
+      <li data-c="ingD"><b>Freshly ground black pepper</b><span class="q w">0.5 g</span><span class="q v">¼ tsp</span></li>
+    </ul>
+  </article>
+
+  <article class="formula-card sauce" aria-labelledby="fe">
+    <h3 id="fe"><span class="tag">E</span> Water-bath Swiss cream emulsion <small>Kirkland stock calibrated</small></h3>
+    <p class="prose"><em>Recommended approach:</em> Run <strong>Half-Batch #1</strong> in a wide-mouth pint Mason jar, confirm silky texture, chill, and run <strong>Half-Batch #2</strong> identically for ~750 g (~3 cups) total sauce.</p>
+    <div class="seg js-only" role="radiogroup" aria-label="Sauce batch size">
+      <span class="seg-label">{{icon:layers}} Amounts for:</span>
+      <button type="button" role="radio" data-set="batch" data-value="half">Half-batch <small>~1½ cups</small></button>
+      <button type="button" role="radio" data-set="batch" data-value="full">Full batch <small>~3 cups</small></button>
+    </div>
+    <div class="phase">
+      <h4>Slurry prep</h4>
+      <ul class="ings batch">
+        <li data-c="ingE"><b>Xanthan gum (master slurry)</b><span class="q w half"><i>½</i>0.75 g</span><span class="q v half"><i>½</i>¼ tsp leveled</span><span class="q w full"><i>Full</i>1.50 g</span><span class="q v full"><i>Full</i>½ tsp leveled</span><p>Includes buffer for cup cling; you will dose <strong>two-thirds</strong> of mixed slurry.</p></li>
+        <li data-c="ingE"><b>Neutral oil (master slurry)</b><span class="q w half"><i>½</i>3.00 g</span><span class="q v half"><i>½</i>½ tsp + ⅛ tsp</span><span class="q w full"><i>Full</i>6.00 g</span><span class="q v full"><i>Full</i>1¼ tsp</span><p>Yields ¾ tsp slurry (half) or 1½ tsp (full). Use fresh neutral oil.</p></li>
+      </ul>
+    </div>
+    <div class="phase">
+      <h4>Phase 1 · Base</h4>
+      <ul class="ings batch">
+        <li data-c="ingE"><b>Kirkland chicken stock (Portion A)</b><span class="q w half"><i>½</i>75.0 g</span><span class="q v half"><i>½</i>5 Tbsp</span><span class="q w full"><i>Full</i>150.0 g</span><span class="q v full"><i>Full</i>½ cup + 2 Tbsp</span><p>Submerges blender head cleanly while keeping dairy Ca²⁺ out of initial melt.</p></li>
+        <li data-c="ingE"><b>Trisodium citrate</b><span class="q w half"><i>½</i>1.80 g</span><span class="q v half"><i>½</i>scant ½ tsp</span><span class="q w full"><i>Full</i>3.60 g</span><span class="q v full"><i>Full</i>scant 1 tsp</span><p>4.5% of cheese weight. Hold a tiny pinch (0.20 g / 0.40 g) in reserve.</p></li>
+        <li data-c="ingE"><b>Mild Swiss, finely grated</b><span class="q w half"><i>½</i>40.0 g</span><span class="q v half"><i>½</i>½ cup loose</span><span class="q w full"><i>Full</i>80.0 g</span><span class="q v full"><i>Full</i>1 cup loose</span><p>Grate on <strong>small box-grater holes</strong>; let warm to <strong>room temp</strong> for 15 min.</p></li>
+      </ul>
+    </div>
+    <div class="phase">
+      <h4>Phase 2 · Dilution</h4>
+      <ul class="ings batch">
+        <li data-c="ingE"><b>Kirkland chicken stock (Portion B)</b><span class="q w half"><i>½</i>100.0 g</span><span class="q v half"><i>½</i>⅓ cup + 1 Tbsp + 1 tsp</span><span class="q w full"><i>Full</i>200.0 g</span><span class="q v full"><i>Full</i>¾ cup + 1 Tbsp + 1 tsp</span><p>Brings total stock to 175 g (half) / 350 g (full).</p></li>
+        <li data-c="ingE"><b>Heavy whipping cream</b><span class="q w half"><i>½</i>100.0 g</span><span class="q v half"><i>½</i>⅓ cup + 1 Tbsp + 1 tsp</span><span class="q w full"><i>Full</i>200.0 g</span><span class="q v full"><i>Full</i>¾ cup + 1 Tbsp + 1 tsp</span><p>Warm together with Portion B stock and milk before adding.</p></li>
+        <li data-c="ingE"><b>Whole milk</b><span class="q w half"><i>½</i>50.0 g</span><span class="q v half"><i>½</i>3 Tbsp + 1 tsp</span><span class="q w full"><i>Full</i>100.0 g</span><span class="q v full"><i>Full</i>⅓ cup + 1 Tbsp + 1 tsp</span><p>Scant ¼ cup (half) / scant ½ cup (full).</p></li>
+        <li class="stock-u" data-c="ingE"><b>Fine sea salt <span class="pill">unsalted stock only</span></b><span class="q w half"><i>½</i>1.4 g</span><span class="q v half"><i>½</i>scant ¼ tsp</span><span class="q w full"><i>Full</i>2.8 g</span><span class="q v full"><i>Full</i>scant ½ tsp</span><p>Per the stock substitution rule. Never use regular full-sodium broth.</p></li>
+      </ul>
+    </div>
+    <div class="phase">
+      <h4>Phase 3 · Finish</h4>
+      <ul class="ings batch">
+        <li data-c="ingE"><b>Mild white miso</b><span class="q w half"><i>½</i>5.0 g</span><span class="q v half"><i>½</i>scant 1 tsp</span><span class="q w full"><i>Full</i>10.0 g</span><span class="q v full"><i>Full</i>1¾ tsp leveled</span><p>Press through fine-mesh tea strainer directly into warm sauce.</p></li>
+        <li data-c="ingE"><b>Freshly ground black pepper</b><span class="q w half"><i>½</i>0.25 g</span><span class="q v half"><i>½</i>scant ⅛ tsp</span><span class="q w full"><i>Full</i>0.50 g</span><span class="q v full"><i>Full</i>scant ¼ tsp</span><p>Optional whole nutmeg: freshly grate literally 3–4 tiny flecks (half) or a tiny pinch (full).</p></li>
+        <li class="stock-k" data-c="ingE"><b>Added salt <span class="pill">Kirkland stock</span></b><span class="q w half"><i>½</i>0 g (None)</span><span class="q w full"><i>Full</i>0 g (None)</span><p>Covered by Kirkland stock + miso (~0.38% NaCl).</p></li>
+      </ul>
+    </div>
+  </article>
+
+  <article class="formula-card" aria-labelledby="ff">
+    <h3 id="ff"><span class="tag">F</span> Thanksgiving Day finishing &amp; balancing</h3>
+    <ul class="ings">
+      <li data-c="ingF"><b>Aged sherry vinegar (or champagne vinegar)</b><span class="q w">5–10 g</span><span class="q v">1 to 2 tsp</span><p>start with 1 tsp diluted in 1 tsp warm water/milk off heat</p></li>
+      <li data-c="ingF"><b>Fish sauce</b><span class="q w">Optional, 0–2 g</span><span class="q v">0 to ½ tsp</span><p>start with ¼ tsp <em>only</em> if needed after tasting complete bite</p></li>
+      <li data-c="ingF"><b>Fresh thyme leaves</b><span class="q w">Optional</span><span class="q v">½ tsp</span><p>scattered before serving</p></li>
+    </ul>
+  </article>
+</section>
+
+<!-- ═══════════════════════ 5. PREP DAY ═══════════════════════ -->
+<section class="band day" id="prep" aria-labelledby="prep-h" data-cook="prep">
+  <header class="sec-head">
+    <p class="eyebrow"><span class="num">05</span> Day before · Wednesday</p>
+    <h2 id="prep-h">Prep day</h2>
+    <p class="sec-sub">Follow this exact sequence to reuse cookware cleanly and overlap passive heating windows.</p>
+    <div class="actions js-only"><button class="btn primary" type="button" data-open-cook="prep">{{icon:play}} Start cook mode</button></div>
+  </header>
+
+  <ol class="sequence">
+    <li><b>Start shallots in cold oil</b> <span>→ while heating, prep mushrooms, aromatics, beans, and cheeses.</span></li>
+    <li><b>Toast panko in the clean 12-inch skillet</b> <span>using warm shallot oil → wipe skillet clean in 10 seconds.</span></li>
+    <li><b>Blanch &amp; quick-chill green beans</b> <span>while the wiped skillet heats for mushrooms.</span></li>
+    <li><b>Brown mushrooms in 2 batches</b> <span>→ finish aromatics with reserved butter &amp; wine deglaze.</span></li>
+    <li><b>Blend Swiss cream emulsion</b> <span>in a gentle water bath.</span></li>
+  </ol>
+
+  <article class="step" id="step-1" data-step="1">
+    <header><span class="step-num">1</span><h3>Cold-start crispy shallots &amp; parallel produce prep</h3></header>
+    <figure class="photo" data-lqip="shallots">
+      <img src="img/shallots-800.webp" alt="Crisp golden-blond fried shallot rings draining in a single layer on paper towels on a sheet pan" width="800" height="800" loading="lazy" decoding="async">
+    </figure>
+    <ol class="subs">
+      <li data-c="s1"><div>Slice the <strong>400 g peeled shallots</strong> uniformly 1–1.5 mm thick on a mandoline using a hand guard.</div></li>
+      <li data-c="s1"><div>Place sliced shallots and <strong>600–650 g (2¾ to 3 cups) cold neutral oil</strong> into a cold 4-quart heavy saucepan or Dutch oven. Stir gently to separate rings. Turn heat to <strong>medium-high</strong>. {{timer:15m-18m|Shallots: watch for bubbling to slow}}</div></li>
+      <li data-c="s1"><div><strong>Parallel mise en place window</strong> (~12–15 minutes while oil comes to a boil and bubbles steadily):
+        <ul>
+          <li>Trim <strong>900 g green beans</strong> and cut into 2-inch pieces. Fill a 6- to 8-quart pot with <strong>4 L (17 cups) water</strong> and <strong>40 g salt</strong>, cover, and set over medium-high heat toward a boil.</li>
+          <li>Clean <strong>600 g cremini mushrooms</strong> (wipe dry; trim only tough stem tips). Chop <strong>400 g</strong> into irregular ¼- to ½-inch pieces (Batch 1) and slice <strong>200 g</strong> into ¼-inch slices (Batch 2).</li>
+          <li>Finely mince <strong>60 g (⅓ cup) yellow onion</strong>, <strong>7 g (2 tsp) garlic</strong>, and pick <strong>1 tsp fresh thyme leaves</strong>.</li>
+          <li>Grate <strong>80 g Swiss</strong> on the small holes of a box grater (leave covered at room temp so it warms up for Step 5) and Microplane <strong>20 g Parmesan</strong> into a small airtight container (refrigerate Parmesan).</li>
+        </ul></div></li>
+      <li data-c="s1"><div><strong>Finish the shallots:</strong> Once rapid bubbling begins to slow (~15–18 minutes into cooking), reduce heat to <strong>medium-low</strong> and stir constantly, sweeping shallots off the pan walls.</div></li>
+      <li data-c="s1"><div>The instant the shallots turn <strong>pale golden-blond</strong> (one shade lighter than your target color—carryover heat darkens them rapidly), pour immediately through a heat-safe strainer set over a heatproof bowl. {{timer:2h|Refrigerate the shallot oil (2-hour limit)}}</div></li>
+      <li data-c="s1"><div>Spread shallots in a thin single layer on paper towels and season lightly with fine salt. Let cool completely until brittle (~15 minutes), then divide or store airtight at room temperature. {{timer:15m|Shallots cool until brittle}}</div></li>
+      <li data-c="s1" class="safety"><div>{{icon:shield-check}} <strong>Food safety rule:</strong> Measure out <strong>27 g (~2 Tbsp)</strong> of strained shallot oil for Steps 2 and 4; cool the remaining infused oil and <strong>refrigerate promptly within 2 hours</strong> (use within 3 days or freeze; never store homemade allium oil at room temperature).</div></li>
+    </ol>
+  </article>
+
+  <article class="step" id="step-2" data-step="2">
+    <header><span class="step-num">2</span><h3>Skillet-toast the panko <small>clean-pan first pass</small></h3></header>
+    <div class="decide">
+      <p><em>Decide now whether you want the <strong>Stress-Free No-Broil Finish</strong> (recommended when Thanksgiving oven space is tight) or the <strong>45-Second Broiler Finish</strong>.</em></p>
+      <div class="seg js-only" role="radiogroup" aria-label="Finish path">
+        <span class="seg-label">My finish:</span>
+        <button type="button" role="radio" data-set="finish" data-value="A">{{icon:sparkles}} No-broil (A)</button>
+        <button type="button" role="radio" data-set="finish" data-value="B">{{icon:flame}} Broil (B)</button>
+      </div>
+    </div>
+    <ol class="subs">
+      <li data-c="s2"><div>In your clean 12-inch skillet over medium-low heat, melt <strong>6 g (1¼ tsp) butter</strong> with <strong>3 g (¾ tsp) strained shallot oil</strong>.</div></li>
+      <li data-c="s2"><div>Add <strong>30 g (½ to ⅔ cup) panko</strong> and stir constantly for 3–6 minutes: {{timer:3m-6m|Panko: stir constantly}}
+        <ul>
+          <li class="path-a"><strong>If using No-Broil Finish:</strong> Toast all the way to a rich, even <strong>deep golden-brown</strong>.</li>
+          <li class="path-b"><strong>If Broiling Tomorrow:</strong> Toast only to <strong>light pale blonde</strong> so the broiler won’t scorch it.</li>
+        </ul></div></li>
+      <li data-c="s2"><div>Transfer immediately to a cool plate (hot skillet carryover burns panko in seconds). Cool completely and store airtight at room temperature. Wipe the skillet clean with a dry paper towel.</div></li>
+    </ol>
+  </article>
+
+  <article class="step" id="step-3" data-step="3">
+    <header><span class="step-num">3</span><h3>Blanch, quick-chill &amp; vertically drain the green beans</h3></header>
+    <figure class="photo wide" data-lqip="beans">
+      <img src="img/beans-1200.webp" srcset="img/beans-800.webp 800w, img/beans-1200.webp 1200w" sizes="(min-width: 1024px) 760px, 100vw" alt="Bright green cut green beans in a glass bowl of ice water beside a colander" width="1200" height="800" loading="lazy" decoding="async">
+    </figure>
+    <ol class="subs">
+      <li data-c="s3"><div>Prepare a large bowl filled generously with ice and cold water next to the stove.</div></li>
+      <li data-c="s3"><div>With your <strong>4 L salted water</strong> at a vigorous rolling boil, add <strong>half (~450 g)</strong> of the cut green beans. Boil uncovered, tasting a pod starting at 3½ minutes (expect <strong>4–6 minutes</strong> for standard green beans, or <strong>5–8 minutes</strong> for thicker Romano-style pole beans). {{timer:3m30s-6m|Beans: start tasting}} {{timer:5m-8m|Romano beans: start tasting}}</div></li>
+      <li data-c="s3"><div>Pull as soon as tender through the core with a pleasant snap—zero raw squeakiness or fibrous chew, as there is no oven bake tomorrow to soften undercooked beans.</div></li>
+      <li data-c="s3"><div><strong>The 90-second chill guardrail:</strong> Plunge beans into the ice bath and stir continuously for <strong>60–90 seconds</strong> just until cold, then lift out <strong>immediately</strong> (leaving cut pods submerged longer sucks water into hollow seed chambers). {{timer:60s-90s|Ice bath: lift beans out}}</div></li>
+      <li data-c="s3"><div>Return pot to a rolling boil, replenish ice if melted, and repeat with the second half of the beans.</div></li>
+      <li data-c="s3"><div>Stand the colander upright in the sink for 3–5 minutes, shaking periodically so trapped water drains out of the cut ends, then spread on clean lint-free towels and blot dry. Refrigerate in a paper-towel-lined container. {{timer:3m-5m|Beans: vertical drain}}</div></li>
+    </ol>
+  </article>
+
+  <article class="step" id="step-4" data-step="4">
+    <header><span class="step-num">4</span><h3>Two-batch wet-start mushrooms &amp; late-butter aromatics</h3></header>
+    <figure class="photo" data-lqip="mushrooms">
+      <img src="img/mushrooms-800.webp" alt="Deeply browned chopped and sliced cremini mushrooms in a wide stainless skillet with thyme" width="800" height="800" loading="lazy" decoding="async">
+    </figure>
+    <ol class="subs">
+      <li data-c="s4"><div><strong>Batch 1 (chopped):</strong> Place the <strong>400 g chopped cremini</strong> and <strong>45 g (3 Tbsp) water</strong> in the wiped 12-inch skillet over medium-high heat. Cover for 2 minutes to collapse the mushrooms’ air pockets. {{timer:2m|Mushrooms batch 1: uncover}}</div></li>
+      <li data-c="s4"><div>Uncover and cook, stirring occasionally, until all free water evaporates and the pan sound shifts from wet bubbling to a crisp sizzle (~4–5 minutes).</div></li>
+      <li data-c="s4"><div>Drizzle in <strong>16 g (1 Tbsp + ¼ tsp) shallot oil</strong>, toss to coat, spread into an even layer, and let brown undisturbed for 90–120 seconds per turn until deeply mahogany (~5–6 minutes). Transfer mushrooms to a bowl (<em>do not add butter yet</em>). {{timer:90s-120s|Mushrooms: turn}}</div></li>
+      <li data-c="s4"><div><strong>Batch 2 (sliced):</strong> Add the <strong>200 g sliced cremini</strong> and <strong>25 g (1 Tbsp + 2 tsp) water</strong> to the hot skillet, cover for 90 seconds, uncover until completely dry, add <strong>8 g (1¾ tsp) shallot oil</strong>, and brown deeply on both sides. Transfer to the mushroom bowl. {{timer:90s|Mushrooms batch 2: uncover}}</div></li>
+      <li data-c="s4"><div><strong>Late-butter aromatics:</strong> Immediately lower burner heat to <strong>medium-low</strong> (let the pan cool off the burner for 20 seconds if very hot). Melt all <strong>20 g (1½ Tbsp) unsalted butter</strong>, add the <strong>60 g (⅓ cup) minced yellow onion</strong>, and cook 3–4 minutes until soft and golden while scraping any fond cleanly. {{timer:3m-4m|Onions: soft and golden}}</div></li>
+      <li data-c="s4"><div>Stir in the <strong>7 g (2 tsp) garlic</strong> and <strong>1 tsp fresh thyme leaves</strong>; cook 45 seconds until fragrant. {{timer:45s|Garlic &amp; thyme}}</div></li>
+      <li data-c="s4"><div>Increase heat to medium and deglaze with <strong>50 g (3 Tbsp + 1 tsp) dry white wine</strong> <em>(or 25 g Kirkland stock + 25 g water)</em>, scraping the skillet bottom completely clean.</div></li>
+      <li data-c="s4"><div>Return all browned mushrooms to the pan, season with <strong>1.2 g (¼ tsp fine) salt</strong> and <strong>¼ tsp black pepper</strong>, and toss for 1–2 minutes until the deglazing liquid has almost completely evaporated with zero pooled liquid. Cool in a shallow container and refrigerate.</div></li>
+    </ol>
+  </article>
+
+  <article class="step" id="step-5" data-step="5">
+    <header><span class="step-num">5</span><h3>Water-bath Swiss cream emulsion</h3></header>
+    <figure class="photo tall" data-lqip="sauce">
+      <img src="img/sauce-800.webp" alt="A wide-mouth glass jar of glossy ivory Swiss cream sauce standing in a small saucepan water bath, an immersion blender beside it" width="800" height="1000" loading="lazy" decoding="async">
+    </figure>
+    <p class="prose"><em>Instructions below run <strong>Half-Batch #1</strong> in a wide-mouth pint Mason jar (~15 minutes). Once smooth, transfer to a storage container and repeat once for <strong>Half-Batch #2</strong> (or double all amounts in a narrow 1-liter beaker).</em></p>
+    <ol class="subs">
+      <li data-c="s5"><div><strong>Mix the 1:4 master slurry:</strong> In a tiny cup or espresso demitasse, stir <strong>0.75 g (¼ tsp leveled) xanthan gum</strong> into <strong>3.00 g (½ tsp + ⅛ tsp) fresh neutral oil</strong> until completely smooth (¾ tsp total slurry). Set aside.</div></li>
+      <li data-c="s5"><div><strong>Set up the water bath:</strong> Pour ~1.5 inches of water into a small saucepan and bring to a gentle simmer. Place <strong>75.0 g (5 Tbsp) Kirkland stock</strong> and <strong>1.80 g (scant ½ tsp) trisodium citrate</strong> into a wide-mouth pint Mason jar, set the jar in the water bath, cover loosely (a small saucer works well), and heat to <strong>{{t:165-172}}</strong>. Swirl to dissolve citrate, then turn burner to <strong>low</strong> so the jar never exceeds <strong>{{t:175}}</strong>.</div></li>
+      <li data-c="s5"><div><strong>Submerged Swiss emulsification:</strong> Keep the jar sitting in the warm water bath. Submerge the immersion blender bell all the way to the bottom of the jar, start on low-medium speed, and feed in the room-temperature <strong>40.0 g (½ cup loose) finely grated Swiss</strong> in 3–4 small handfuls over 30 seconds. Blend submerged for 30–45 seconds until glossy, keeping temperature between <strong>{{t:160-175}}</strong>. {{timer:30s-45s|Blend Swiss until glossy}}</div></li>
+      <li data-c="s5"><div><strong>Texture-only check:</strong> Rub a cooled drop between your thumb and forefinger or press against the roof of your mouth (<em>ignore flavor right now—concentrated citrate tastes sharp before dilution</em>). It should feel completely smooth. <em>Only</em> if physical cheese grit remains after 45 seconds of blending at {{t:170}}, dissolve a tiny pinch (<strong>0.20 g</strong>) of reserve citrate in ½ tsp warm water and blend 20 seconds.</div></li>
+      <li data-c="s5"><div><strong>Warm dairy &amp; stock dilution:</strong> In a liquid measuring cup (microwave 45–60 seconds) or small pot, warm <strong>100.0 g (⅓ cup + 1 Tbsp + 1 tsp) Kirkland stock</strong>, <strong>100.0 g (⅓ cup + 1 Tbsp + 1 tsp) heavy cream</strong>, and <strong>50.0 g (3 Tbsp + 1 tsp) whole milk</strong> to <strong>{{t:160-170}}</strong>. Pour slowly into the Mason jar and pulse the submerged blender on low for 10–15 seconds without whipping in air foam. <span class="stock-u note-inline">{{icon:triangle-alert}} Unsalted stock: add the <strong>1.4 g</strong> fine sea salt here (Phase 2).</span></div></li>
+      <li data-c="s5"><div><strong>Strain in miso &amp; spices:</strong> Hold a fine-mesh tea strainer with its bottom dipped into the warm sauce and press <strong>5.0 g (scant 1 tsp) white miso</strong> through with the back of a spoon, discarding any coarse hull fibers left in the mesh. Stir in <strong>scant ⅛ tsp black pepper</strong> (and 3–4 flecks freshly grated nutmeg if desired).</div></li>
+      <li data-c="s5"><div><strong>Dose &amp; hydrate xanthan:</strong> Tare the sauce jar on your scale and drip <strong>2.50 g (½ tsp) of the mixed xanthan slurry</strong> (= 0.50 g xanthan) into the center. Return jar to the turned-off warm water bath, submerge the blender head, and shear continuously for <strong>45–60 seconds</strong>. Let rest undisturbed for a <strong>full 5 minutes</strong>. {{timer:45s-60s|Shear xanthan}} {{timer:5m|Xanthan rest (full 5 min)}}</div></li>
+      <li data-c="s5"><div><strong>Verify coating &amp; repeat:</strong> At {{t:165-175}}, dip a spoon or test bean—the sauce should coat velvet-smooth, hold a clean finger track on the back of the spoon, and pour fluidly. (<em>Only</em> if still too runny after the full 5-minute rest, blend in 6–8 drops / 0.25–0.50 g of leftover slurry and wait 4 minutes.) Pour Half-Batch #1 into a shallow container, rinse the Mason jar if needed, and run <strong>Half-Batch #2</strong> identically. Cool promptly and refrigerate. {{timer:4m|Extra slurry: wait}}</div></li>
+      <li data-c="s5" class="repeat"><div>{{icon:rotate-ccw}} <strong>Half-Batch #2:</strong> repeat sub-steps 1–8 with the same half-batch amounts, then cool promptly and refrigerate.</div></li>
+    </ol>
+  </article>
+
+  <aside class="storage-card" aria-labelledby="tonight-h">
+    <h3 id="tonight-h">{{icon:refrigerator}} Tonight’s storage</h3>
+    <ul class="checklist compact">
+      <li data-c="store"><div><b>Swiss cream sauce</b> <span class="where fridge">Fridge</span> <span class="q">up to 48 h</span><p>Cool promptly in shallow containers.</p></div></li>
+      <li data-c="store"><div><b>Browned mushrooms</b> <span class="where fridge">Fridge</span> <span class="q">up to 48 h</span><p>Cool in a shallow container and refrigerate.</p></div></li>
+      <li data-c="store"><div><b>Infused shallot oil</b> <span class="where fridge">Fridge within 2 h</span> <span class="q">3 days</span><p>Or freeze. Never store homemade allium oil at room temperature.</p></div></li>
+      <li data-c="store"><div><b>Blanched green beans</b> <span class="where fridge">Fridge</span> <span class="q">up to 24 h</span><p>Paper-towel-lined container.</p></div></li>
+      <li data-c="store"><div><b>Grated Parmesan</b> <span class="where fridge">Fridge</span><p>Small airtight container, stored separately until service.</p></div></li>
+      <li data-c="store"><div><b>Crisp shallots</b> <span class="where room">Room temp</span> <span class="q">up to 48 h</span><p>Airtight.</p></div></li>
+      <li data-c="store"><div><b>Toasted panko</b> <span class="where room">Room temp</span> <span class="q">up to 48 h</span><p>Airtight.</p></div></li>
+    </ul>
+  </aside>
+</section>
+
+<!-- ═══════════════════════ 6. THANKSGIVING ═══════════════════════ -->
+<section class="band day" id="serve" aria-labelledby="serve-h" data-cook="serve">
+  <header class="sec-head">
+    <p class="eyebrow"><span class="num">06</span> Thanksgiving · Thursday</p>
+    <h2 id="serve-h">Reheat, balance &amp; finish <em>(30-minute countdown)</em></h2>
+    <div class="actions js-only"><button class="btn primary" type="button" data-open-cook="serve">{{icon:play}} Start cook mode</button></div>
+  </header>
+
+  <div class="planner" id="planner">
+    <div class="planner-head js-only">
+      <label for="serve-time">{{icon:calendar-clock}} We’re eating at</label>
+      <input type="time" id="serve-time" value="16:00" step="300">
+      <div class="planner-btns">
+        <button class="btn small" type="button" data-arm-countdown>{{icon:bell-ring}} Alert me at each step</button>
+        <button class="btn small ghost" type="button" data-start-now>{{icon:play}} Start the 30 min now</button>
+      </div>
+      <p class="planner-status" data-planner-status aria-live="polite"></p>
+    </div>
+    <ol class="countdown">
+      <li data-offset="30"><span class="tminus">T-30 min</span><time class="clock js-only"></time><p>Pull mushrooms, sauce, Parmesan, vinegar, and toppings to the counter; crush 20 g internal shallots.</p></li>
+      <li data-offset="22"><span class="tminus">T-22 min</span><time class="clock js-only"></time><p>Begin gently reheating mushroom + crushed-shallot + sauce mixture on the stove.</p></li>
+      <li data-offset="15"><span class="tminus">T-15 min</span><time class="clock js-only"></time><p>Microwave green beans in 1–2 batches to {{t:165}}; fill serving dish with hot tap water to prewarm.</p></li>
+      <li data-offset="8"><span class="tminus">T-8 min</span><time class="clock js-only"></time><p>Blot hot beans on a clean towel, fold into hot mushroom cream, verify {{t:165+}}, and balance off-heat acid.</p></li>
+      <li data-offset="3"><span class="tminus">T-3 min</span><time class="clock js-only"></time><p>Dry prewarmed gratin dish, transfer casserole, top with Parmesan-panko (broil 30–60 sec <em>if</em> chosen), scatter crisp shallots, and serve immediately.</p></li>
+      <li data-offset="0" class="js-only"><span class="tminus">Serve</span><time class="clock"></time><p>Carry uncovered straight to the table with the small bowl of extra crisp shallots.</p></li>
+    </ol>
+  </div>
+
+  <article class="step" id="step-6" data-step="6">
+    <header><span class="step-num">6</span><h3>Zero-oven vessel prewarm &amp; topping prep</h3></header>
+    <ol class="subs">
+      <li data-c="s6"><div>Fill your shallow 3-quart metal gratin dish or 12-inch braiser with very hot tap water and set on a trivet so the metal warms gently without tying up the Thanksgiving oven (or overheating under a broiler and splitting the cream sauce on contact).</div></li>
+      <li data-c="s6" class="path-b"><div><em>(Optional broiler path only):</em> Position an oven rack 6 inches below the broiler element and preheat the broiler during Step 8.</div></li>
+      <li data-c="s6"><div>Measure out your three fried-shallot portions:
+        <ul>
+          <li><strong>20 g (~⅓ cup):</strong> Crush between your fingers into <strong>fine flakes</strong> (prevents limp, stringy rings in the filling).</li>
+          <li><strong>65 g (~1⅓ cups):</strong> Keep whole and crisp for the surface.</li>
+          <li><strong>15 g (~⅓ cup):</strong> Place in a small serving bowl for the table.</li>
+        </ul></div></li>
+    </ol>
+  </article>
+
+  <article class="step" id="step-7" data-step="7">
+    <header><span class="step-num">7</span><h3>Reheat mushroom cream with crushed shallots</h3></header>
+    <ol class="subs">
+      <li data-c="s7"><div>In a wide 12-inch sauté pan or Dutch oven, combine all <strong>browned mushrooms</strong>, <strong>625–650 g (~2½ cups) of the Swiss cream sauce</strong> (hold ~100 g / ⅓ to ½ cup in reserve), and the <strong>20 g crushed fried shallots</strong>.</div></li>
+      <li data-c="s7"><div>Warm over <strong>medium-low heat</strong>, stirring and scraping the bottom frequently with a silicone spatula, until steaming gently at <strong>{{t:170-175}}</strong> (~8–10 minutes). Do not boil vigorously. {{timer:8m-10m|Mushroom cream: check temp}}</div></li>
+      <li data-c="s7"><div><strong>Evaporation guardrail:</strong> If steam evaporation thickens the sauce slightly in the wide pan, loosen with 1–2 Tbsp splashes of <strong>warm water or whole milk</strong>—do <em>not</em> thin with extra salted stock.</div></li>
+    </ol>
+  </article>
+
+  <article class="step" id="step-8" data-step="8">
+    <header><span class="step-num">8</span><h3>Reheat &amp; towel-blot the green beans</h3></header>
+    <ol class="subs">
+      <li data-c="s8"><div>Place refrigerated green beans in a microwave-safe bowl with a vented cover (work in two halves if crowded).</div></li>
+      <li data-c="s8"><div>Microwave on high for <strong>90 seconds</strong>, toss, and heat in <strong>45–60 second bursts</strong> until an instant-read thermometer reads at least <strong>{{t:165}}</strong> in multiple spots. <em>(Alternative: steam over boiling water for 3–4 minutes to {{t:165}}.)</em> {{timer:90s|Beans: toss}} {{timer:45s-60s|Beans: burst}}</div></li>
+      <li data-c="s8"><div><strong>Purge blot:</strong> Immediately tip the steaming beans onto a clean, dry lint-free kitchen towel for <strong>20–30 seconds</strong> and lift the towel corners gently to blot away any hot condensation purged from the pods before they touch the sauce. {{timer:20s-30s|Blot beans}}</div></li>
+    </ol>
+  </article>
+
+  <article class="step" id="step-9" data-step="9">
+    <header><span class="step-num">9</span><h3>Fold, verify temperature &amp; calibrate off-heat acid</h3></header>
+    <ol class="subs">
+      <li data-c="s9"><div>Fold the hot, blotted green beans gently into the {{t:175}} mushroom cream mixture.</div></li>
+      <li data-c="s9"><div>Check coverage: beans should be glossily coated with modest creamy pools between pods, never drowning. Warm and fold in small spoonfuls of your reserved sauce only if needed. Verify the combined center reads at least <strong>{{t:165}}</strong> (ideally ~{{t:170}}).</div></li>
+      <li data-c="s9"><div><strong>Remove the pan from the burner.</strong> Whisk <strong>5 g (1 tsp) aged sherry vinegar</strong> with <strong>1 tsp warm water or milk</strong> in a small cup, drizzle broadly over the surface, and fold thoroughly so neat acid never shocks a single hot spot.</div></li>
+      <li data-c="s9"><div><strong>Complete-bite calibration:</strong> Put one bean, one mushroom, sauce, a pinch of Parmesan-panko, and a crisp shallot on a fork, blow to eating temperature (~{{t:135}}), and adjust in this exact order:
+        <ul class="ladder">
+          <li><em>Still slightly rich or heavy?</em> Drizzle in another <strong>½ to 1 tsp (2.5–5 g) diluted sherry vinegar</strong>.</li>
+          <li><em>Wants deeper savory backbone?</em> Stir in <strong>¼ tsp (1 g) fish sauce</strong>, taste, and add at most another ¼ tsp (fish sauce should remain completely invisible).</li>
+          <li><em>Needs pure salt?</em> Add a tiny pinch of fine sea salt only if neither vinegar nor fish sauce is needed.</li>
+        </ul></div></li>
+    </ol>
+  </article>
+
+  <article class="step" id="step-10" data-step="10">
+    <header><span class="step-num">10</span><h3>Dual-crunch assembly &amp; service</h3></header>
+    <ol class="subs">
+      <li data-c="s10"><div>Dump the warm water out of your serving dish and wipe it bone-dry. Spoon the piping-hot casserole mixture evenly into the warm dish.</div></li>
+      <li data-c="s10"><div>Toss the room-temperature <strong>toasted panko</strong> with the <strong>20 g wispy Microplane-grated Parmesan</strong> and scatter evenly across the top, leaving a narrow border of glossy green beans peeking out at the edges.</div></li>
+      <li data-c="s10"><div><strong>Finish by your chosen path:</strong>
+        <ul>
+          <li class="path-a"><strong>Path A — Zero-oven residual melt (recommended):</strong> Because you toasted the panko to deep golden-brown in Step 2 and Microplaned the Parmesan into feathery wisps, the {{t:170}} steam rising off the casserole softens and clings the Parmesan within 30 seconds with zero oven contention or scorching risk.</li>
+          <li class="path-b"><strong>Path B — 45-second broil:</strong> Slide the metal dish 6 inches beneath the preheated broiler with the oven door cracked slightly and <strong>do not take your eyes off it</strong>. Pull at <strong>30–60 seconds</strong> the instant the Parmesan melts and pale crumbs turn golden. {{timer:30s-60s|Broiler: watch it!}}</li>
+        </ul></div></li>
+      <li data-c="s10"><div>Immediately scatter the <strong>65 g (~1⅓ cups) crisp whole fried shallots</strong> across the top <em>after</em> any broiling (plus ½ tsp fresh thyme leaves if desired).</div></li>
+      <li data-c="s10"><div>Carry <strong>uncovered</strong> straight to the table alongside the small bowl of extra crisp shallots.</div></li>
+    </ol>
+    <div class="finale" hidden data-finale>
+      <p>{{icon:party-popper}} <strong>Served.</strong> Happy Thanksgiving!</p>
+    </div>
+  </article>
+</section>
+
+<!-- ═══════════════════════ 7. HELP ═══════════════════════ -->
+<section class="band" id="help" aria-labelledby="help-h">
+  <header class="sec-head">
+    <p class="eyebrow"><span class="num">07</span> Rapid troubleshooting &amp; food safety</p>
+    <h2 id="help-h">Something’s wrong?</h2>
+  </header>
+  <div class="fixes">
+    <details class="fix" open>
+      <summary><span>{{icon:circle-help}}</span> Sauce grainy in Phase 1</summary>
+      <dl><dt>Root cause</dt><dd>Temp exceeded {{t:180}} (whey/stock protein grit) or cold cheese dropped temp below {{t:145}}</dd>
+      <dt>Immediate fix</dt><dd>Keep water bath at {{t:165-175}}; if under-melted, warm to {{t:170}} and blend 30 sec with pinch (0.20 g) citrate.</dd></dl>
+    </details>
+    <details class="fix">
+      <summary><span>{{icon:circle-help}}</span> Sauce grainy after miso</summary>
+      <dl><dt>Root cause</dt><dd>Unstrained soybean solids</dd>
+      <dt>Immediate fix</dt><dd>Pass warm sauce through a fine-mesh strainer before or right after xanthan addition.</dd></dl>
+    </details>
+    <details class="fix">
+      <summary><span>{{icon:circle-help}}</span> Sauce too thick upon reheat</summary>
+      <dl><dt>Root cause</dt><dd>Steam evaporation in wide sauté pan</dd>
+      <dt>Immediate fix</dt><dd>Whisk in 1–2 Tbsp warm water or whole milk (never salted stock).</dd></dl>
+    </details>
+    <details class="fix">
+      <summary><span>{{icon:circle-help}}</span> Sauce slightly thin after 5-min rest</summary>
+      <dl><dt>Root cause</dt><dd>Light spoon measurement on xanthan</dd>
+      <dt>Immediate fix</dt><dd>Blend in 6–8 drops (0.25–0.50 g) of leftover master slurry per half-batch; wait 4 minutes. {{timer:4m|Extra slurry: wait}}</dd></dl>
+    </details>
+    <details class="fix">
+      <summary><span>{{icon:circle-help}}</span> Watery ring in serving dish</summary>
+      <dl><dt>Root cause</dt><dd>Beans left too long in ice bath or skipped post-microwave towel blot</dd>
+      <dt>Immediate fix</dt><dd>Blot microwaved beans on a dry towel for 30 sec before folding into sauce.</dd></dl>
+    </details>
+    <details class="fix">
+      <summary><span>{{icon:circle-help}}</span> Shallots soften on top</summary>
+      <dl><dt>Root cause</dt><dd>Covered dish or applied before broiling</dd>
+      <dt>Immediate fix</dt><dd>Always apply shallots right before walking to the table and serve uncovered.</dd></dl>
+    </details>
+  </div>
+
+  <h3 class="sub-h">{{icon:shield-check}} Storage &amp; food safety reminders</h3>
+  <ul class="safety-list">
+    <li><strong>Infused shallot oil:</strong> Refrigerate strained shallot oil within 2 hours at or below {{t:40}} to prevent <em>Clostridium botulinum</em> growth in low-acid allium oil; use within 3 days or freeze.</li>
+    <li><strong>Make-ahead cooling &amp; reheating:</strong> Cool cooked mushrooms, blanched beans, and sauce in shallow containers and refrigerate within 2 hours. Reheat all previously refrigerated cooked components to at least {{t:165}} prior to service.</li>
+    <li><strong>Leftovers:</strong> Refrigerate within 2 hours and enjoy within 3 days of initial prep. Scrape off softened toppings before microwaving leftovers and top with reserved dry shallots if available.</li>
+  </ul>
+</section>
+
+<footer class="foot">
+  <p>{{icon:bean}} First-Principles Thanksgiving Green Bean Casserole · v3.3 Production Edition</p>
+  <p class="fine">Works offline once opened. Add it to your Home Screen for a full-screen kitchen app. <button class="linkish js-only" type="button" data-print>{{icon:printer}} Print</button></p>
+</footer>
+</main>
+
+<div class="dock js-only" id="dock" aria-live="polite" aria-label="Running timers"></div>
+
+<dialog class="sheet" id="settings" aria-labelledby="settings-h">
+  <form method="dialog" class="sheet-inner">
+    <header><h2 id="settings-h">Settings</h2><button class="icon-btn" value="close" aria-label="Close settings">{{icon:x}}</button></header>
+    <div class="setting">
+      <p>Measurements</p>
+      <div class="seg" role="radiogroup" aria-label="Measurements">
+        <button type="button" role="radio" data-set="units" data-value="both">Both</button>
+        <button type="button" role="radio" data-set="units" data-value="w">Weights</button>
+        <button type="button" role="radio" data-set="units" data-value="v">Volumes</button>
+      </div>
+    </div>
+    <div class="setting">
+      <p>Temperature</p>
+      <div class="seg" role="radiogroup" aria-label="Temperature unit">
+        <button type="button" role="radio" data-set="temp" data-value="F">°F</button>
+        <button type="button" role="radio" data-set="temp" data-value="C">°C</button>
+      </div>
+    </div>
+    <div class="setting">
+      <p>Stock</p>
+      <div class="seg" role="radiogroup" aria-label="Stock">
+        <button type="button" role="radio" data-set="stock" data-value="kirkland">Kirkland Organic</button>
+        <button type="button" role="radio" data-set="stock" data-value="unsalted">Unsalted</button>
+      </div>
+    </div>
+    <div class="setting">
+      <p>Sauce amounts</p>
+      <div class="seg" role="radiogroup" aria-label="Sauce batch">
+        <button type="button" role="radio" data-set="batch" data-value="half">Half-batch</button>
+        <button type="button" role="radio" data-set="batch" data-value="full">Full batch</button>
+      </div>
+    </div>
+    <div class="setting">
+      <p>Finish</p>
+      <div class="seg" role="radiogroup" aria-label="Finish path">
+        <button type="button" role="radio" data-set="finish" data-value="A">No-broil (A)</button>
+        <button type="button" role="radio" data-set="finish" data-value="B">Broil (B)</button>
+      </div>
+    </div>
+    <div class="setting">
+      <p>Appearance</p>
+      <div class="seg" role="radiogroup" aria-label="Theme">
+        <button type="button" role="radio" data-set="theme" data-value="auto">{{icon:sun-moon}} Auto</button>
+        <button type="button" role="radio" data-set="theme" data-value="light">{{icon:sun}} Light</button>
+        <button type="button" role="radio" data-set="theme" data-value="dark">{{icon:moon}} Dark</button>
+      </div>
+    </div>
+    <div class="setting">
+      <p>Day</p>
+      <div class="seg" role="radiogroup" aria-label="Which day is it?">
+        <button type="button" role="radio" data-set="day" data-value="auto">By date</button>
+        <button type="button" role="radio" data-set="day" data-value="prep">Prep day</button>
+        <button type="button" role="radio" data-set="day" data-value="serve">Thanksgiving</button>
+      </div>
+    </div>
+    <div class="setting row">
+      <button class="btn small ghost" type="button" data-notify>{{icon:bell-ring}} Allow timer alerts</button>
+      <button class="btn small danger" type="button" data-reset>{{icon:rotate-ccw}} Reset all checkmarks</button>
+    </div>
+  </form>
+</dialog>
+
+<dialog class="cook" id="cook" aria-labelledby="cook-title">
+  <div class="cook-inner">
+    <header class="cook-bar">
+      <button class="icon-btn" type="button" data-cook-close aria-label="Close cook mode">{{icon:x}}</button>
+      <div class="cook-meta"><p class="cook-kicker" data-cook-kicker></p><p class="cook-count" data-cook-count></p></div>
+      <button class="icon-btn" type="button" data-cook-speak aria-pressed="false" aria-label="Read steps aloud">{{icon:volume-2}}</button>
+    </header>
+    <div class="cook-progress" aria-hidden="true"><i data-cook-bar></i></div>
+    <article class="cook-card" data-cook-card aria-live="polite">
+      <h2 id="cook-title" data-cook-title></h2>
+      <div class="cook-body" data-cook-body></div>
+      <div class="cook-timers" data-cook-timers></div>
+    </article>
+    <p class="cook-wake" data-cook-wake hidden>{{icon:smartphone}} Screen will stay on</p>
+    <footer class="cook-nav">
+      <button class="btn ghost big" type="button" data-cook-prev>{{icon:chevron-left}} Back</button>
+      <button class="btn primary big" type="button" data-cook-next>Done {{icon:check}}</button>
+    </footer>
+  </div>
+</dialog>
+
+<script type="module">
+/* @inline:js */
+</script>
+</body>
+</html>
